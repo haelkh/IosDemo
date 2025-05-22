@@ -26,16 +26,7 @@ struct AnimatedImageCard: View {
                         .shadow(color: .yellow.opacity(0.4), radius: isHovered ? 10 : 4, x: 0, y: 5)
                         .scaleEffect(isHovered ? 1.05 : 1.0)
                         .animation(.easeInOut(duration: 0.3), value: isHovered)
-                        .onTapGesture {
-                            withAnimation {
-                                onTap()
-                            }
-                        }
-                        .onHover { hovering in
-                            #if os(macOS)
-                            isHovered = hovering
-                            #endif
-                        }
+                        
                 case .failure:
                     Image(systemName: "xmark.octagon")
                         .resizable()
