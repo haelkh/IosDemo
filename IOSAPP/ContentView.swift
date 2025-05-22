@@ -71,6 +71,7 @@ struct ContentView: View {
             let screenSize = geometry.size
             let isCompact = screenSize.width < 768 // iPhone and small devices
             let isRegular = screenSize.width >= 768 && screenSize.width < 1024 // iPad portrait
+            let isLarge = screenSize.width >= 1024 // iPad landscape and larger
             
             ZStack { // Main ZStack for content and popup
                 // Dynamic background with parallax effect
@@ -218,25 +219,24 @@ struct ContentView: View {
                         }
                         
                         // Vertical Carousel - Hypercars
-                        carSection(
-                            title: "HYPERCARS",
-                            icon: "flame.fill",
-                            cars: verticalImages,
-                            screenSize: screenSize,
-                            isCompact: isCompact,
-                            isRegular: isRegular
-                        )
-                        
-                        // Horizontal Carousel - Formula 1 Cars
-                        carSection(
-                            title: "FORMULA 1",
-                            icon: "flag.checkered.2.crossed",
-                            cars: horizontalImages,
-                            screenSize: screenSize,
-                            isCompact: isCompact,
-                            isRegular: isRegular
-                        )
-                        
+                        horizontalCarSection(
+                                            title: "HYPERCARS",
+                                            icon: "flame.fill",
+                                            cars: verticalImages,
+                                            screenSize: screenSize,
+                                            isCompact: isCompact,
+                                            isRegular: isRegular
+                                        )
+
+                                        // Vertical Layout - Formula 1 Cars
+                                        verticalCarSection(
+                                            title: "FORMULA 1",
+                                            icon: "flag.checkered.2.crossed",
+                                            cars: horizontalImages,
+                                            screenSize: screenSize,
+                                            isCompact: isCompact,
+                                            isRegular: isRegular
+                                        )
                         // Footer
                         VStack(spacing: 15) {
                             Text("POWERED BY")
@@ -244,23 +244,9 @@ struct ContentView: View {
                                 .foregroundColor(textColor.opacity(0.6))
                                 .tracking(isCompact ? 3 : 5)
                             
-                            if isCompact {
-                                VStack(spacing: 10) {
-                                    ForEach(["Ferrari", "McLaren", "Williams"], id: \.self) { brand in
-                                        Text(brand)
-                                            .font(.system(size: 12, weight: .semibold))
-                                            .foregroundColor(textColor.opacity(0.7))
-                                    }
-                                }
-                            } else {
-                                HStack(spacing: 30) {
-                                    ForEach(["Ferrari", "McLaren", "Williams"], id: \.self) { brand in
-                                        Text(brand)
-                                            .font(.system(size: 14, weight: .semibold))
-                                            .foregroundColor(textColor.opacity(0.7))
-                                    }
-                                }
-                            }
+                            Text("Hassan Mohsen Elkhatib").font(.system(size: isCompact ? 14 : 16, weight: .regular, design: .monospaced))
+                                .foregroundColor(Color.red)
+                                .tracking(isCompact ? 3 : 5)
                         }
                         .padding(.vertical, isCompact ? 30 : 40)
                     }
@@ -344,7 +330,116 @@ struct ContentView: View {
             .animation(.easeInOut(duration: 0.3), value: showCarDetails)
         }
     }
-
+    @ViewBuilder
+       private func horizontalCarSection(
+           title: String,
+           icon: String,
+           cars: [Car],
+           screenSize: CGSize,
+           isCompact: Bool,
+           isRegular: Bool
+       ) -> some View {
+           let cardWidth: CGFloat = isCompact ? screenSize.width * 0.5 : 260
+           let cardHeight: CGFloat = isCompact ? cardWidth * 1.5 : 260
+           
+           VStack(alignment: .leading, spacing: 15) {
+               sectionHeader(title: title, icon: icon, isCompact: isCompact)
+               
+               ScrollView(.horizontal, showsIndicators: false) {
+                   LazyHStack(spacing: isCompact ? 16 : 20) {
+                       ForEach(cars) { car in
+                           if let url = URL(string: car.url) {
+                               PremiumCarCard(
+                                   url: url,
+                                   title: car.title,
+                                   isPremium: car.isPremium,
+                                   isSubscribed: isSubscribed,
+                                   accentColor: accentColor,
+                                   accentColorAlt: accentColorAlt,
+                                   cardBgColor: cardBgColor,
+                                   width: cardWidth,
+                                   height: cardHeight,
+                                   isCompact: isCompact,
+                                   action: {
+                                       selectedCar = car
+                                       withAnimation(.spring()) {
+                                           showCarDetails = true
+                                       }
+                                   }
+                               )
+                           }
+                       }
+                   }
+                   .padding(.horizontal, isCompact ? 16 : 20)
+               }
+           }
+       }
+       
+       @ViewBuilder
+       private func verticalCarSection(
+           title: String,
+           icon: String,
+           cars: [Car],
+           screenSize: CGSize,
+           isCompact: Bool,
+           isRegular: Bool
+       ) -> some View {
+           let cardWidth: CGFloat = isCompact ? screenSize.width * 0.8 : 260
+           let cardHeight: CGFloat = isCompact ? cardWidth * 0.5 : 260
+           
+           VStack(alignment: .leading, spacing: 15) {
+               sectionHeader(title: title, icon: icon, isCompact: isCompact)
+               
+               ScrollView(.horizontal, showsIndicators: false) {
+                   LazyHStack(spacing: isCompact ? 16 : 20) {
+                       ForEach(cars) { car in
+                           if let url = URL(string: car.url) {
+                               PremiumCarCard(
+                                   url: url,
+                                   title: car.title,
+                                   isPremium: car.isPremium,
+                                   isSubscribed: isSubscribed,
+                                   accentColor: accentColor,
+                                   accentColorAlt: accentColorAlt,
+                                   cardBgColor: cardBgColor,
+                                   width: cardWidth,
+                                   height: cardHeight,
+                                   isCompact: isCompact,
+                                   action: {
+                                       selectedCar = car
+                                       withAnimation(.spring()) {
+                                           showCarDetails = true
+                                       }
+                                   }
+                               )
+                           }
+                       }
+                   }
+                   .padding(.horizontal, isCompact ? 16 : 20)
+               }
+           }
+       }
+       
+       private func sectionHeader(title: String, icon: String, isCompact: Bool) -> some View {
+           HStack(spacing: 10) {
+               Image(systemName: icon)
+                   .font(.system(size: isCompact ? 16 : 18, weight: .bold))
+                   .foregroundColor(accentColor)
+               
+               Text(title)
+                   .font(.system(
+                       size: isCompact ? 18 : 22,
+                       weight: .bold,
+                       design: .monospaced
+                   ))
+                   .foregroundColor(textColor)
+                   .tracking(isCompact ? 1 : 2)
+               
+               Spacer()
+           }
+           .padding(.horizontal, isCompact ? 16 : 20)
+           .padding(.top, 10)
+       }
     @ViewBuilder
     private func carSection(
         title: String,
@@ -385,12 +480,6 @@ struct ContentView: View {
                 
                 Spacer()
                 
-                Button(action: {}) {
-                    Text("VIEW ALL")
-                        .font(.system(size: isCompact ? 10 : 12, weight: .regular, design: .monospaced))
-                        .foregroundColor(accentColorAlt)
-                        .tracking(1)
-                }
             }
             .padding(.horizontal, isCompact ? 16 : 20)
             .padding(.top, 10)
@@ -427,6 +516,7 @@ struct ContentView: View {
             .animation(.easeInOut(duration: 0.5), value: cars)
         }
     }
+    
 }
 
 // MARK: - Supporting Views
@@ -722,23 +812,8 @@ struct CarDetailView: View {
                         // Action buttons
                         if isCompact {
                             VStack(spacing: 12) {
-                                Button(action: {}) {
-                                    HStack(spacing: 8) {
-                                        Image(systemName: "info.circle")
-                                            .font(.system(size: 16))
-                                        
-                                        Text("MORE INFO")
-                                            .font(.system(size: 14, weight: .medium, design: .monospaced))
-                                    }
-                                    .foregroundColor(.white)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 12)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 12)
-                                            .fill(Color.white.opacity(0.1))
-                                    )
-                                }
                                 
+
                                 Button(action: playVideoAction) {
                                     HStack(spacing: 8) {
                                         Image(systemName: "play.fill")
@@ -760,24 +835,6 @@ struct CarDetailView: View {
                             }
                         } else {
                             HStack(spacing: 15) {
-                                Button(action: {}) {
-                                    HStack(spacing: 8) {
-                                        Image(systemName: "info.circle")
-                                            .font(.system(size: 16))
-                                        
-                                        Text("MORE INFO")
-                                            .font(.system(size: 14, weight: .medium, design: .monospaced))
-                                    }
-                                    .foregroundColor(.white)
-                                    .padding(.vertical, 12)
-                                    .padding(.horizontal, 20)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 12)
-                                            .fill(Color.white.opacity(0.1))
-                                    )
-                                }
-                                
-                                Spacer()
                                 
                                 Button(action: playVideoAction) {
                                     HStack(spacing: 8) {
