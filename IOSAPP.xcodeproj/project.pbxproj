@@ -16,6 +16,8 @@
 		E48E58112DDE44A40029805B /* IOSAPPUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48E58102DDE44A40029805B /* IOSAPPUITestsLaunchTests.swift */; };
 		E48E581E2DDE44D10029805B /* CustomVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48E581D2DDE44D10029805B /* CustomVideoPlayerView.swift */; };
 		E48E58212DDE4D1A0029805B /* AnimatedImageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48E58202DDE4D1A0029805B /* AnimatedImageCard.swift */; };
+		E4B59E6F2DDFC31800609FD6 /* adplayer.html in Resources */ = {isa = PBXBuildFile; fileRef = E4B59E6E2DDFC31800609FD6 /* adplayer.html */; };
+		E4B59E712DDFC3CE00609FD6 /* AdWebPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B59E702DDFC3CE00609FD6 /* AdWebPlayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,8 @@
 		E48E58102DDE44A40029805B /* IOSAPPUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSAPPUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E48E581D2DDE44D10029805B /* CustomVideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoPlayerView.swift; sourceTree = "<group>"; };
 		E48E58202DDE4D1A0029805B /* AnimatedImageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedImageCard.swift; sourceTree = "<group>"; };
+		E4B59E6E2DDFC31800609FD6 /* adplayer.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = adplayer.html; sourceTree = "<group>"; };
+		E4B59E702DDFC3CE00609FD6 /* AdWebPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdWebPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,8 +106,10 @@
 				E48E57F32DDE44A10029805B /* IOSAPPApp.swift */,
 				E48E57F52DDE44A10029805B /* ContentView.swift */,
 				E48E58202DDE4D1A0029805B /* AnimatedImageCard.swift */,
+				E4B59E6E2DDFC31800609FD6 /* adplayer.html */,
 				E48E57F72DDE44A30029805B /* Assets.xcassets */,
 				E48E57F92DDE44A40029805B /* Preview Content */,
+				E4B59E702DDFC3CE00609FD6 /* AdWebPlayer.swift */,
 			);
 			path = IOSAPP;
 			sourceTree = "<group>";
@@ -221,6 +227,11 @@
 				Base,
 			);
 			mainGroup = E48E57E72DDE44A10029805B;
+			packageReferences = (
+				E4B59E692DDFBBA600609FD6 /* XCRemoteSwiftPackageReference "googleads-ima-ios" */,
+				E4B59E6C2DDFBEA100609FD6 /* XCRemoteSwiftPackageReference "googleads-ima-ios" */,
+				E4B59E6D2DDFBFA700609FD6 /* XCRemoteSwiftPackageReference "googleads-ima-ios" */,
+			);
 			productRefGroup = E48E57F12DDE44A10029805B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -238,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E48E57FB2DDE44A40029805B /* Preview Assets.xcassets in Resources */,
+				E4B59E6F2DDFC31800609FD6 /* adplayer.html in Resources */,
 				E48E57F82DDE44A30029805B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,6 +279,7 @@
 				E48E581E2DDE44D10029805B /* CustomVideoPlayerView.swift in Sources */,
 				E48E58212DDE4D1A0029805B /* AnimatedImageCard.swift in Sources */,
 				E48E57F42DDE44A10029805B /* IOSAPPApp.swift in Sources */,
+				E4B59E712DDFC3CE00609FD6 /* AdWebPlayer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,6 +598,33 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E4B59E692DDFBBA600609FD6 /* XCRemoteSwiftPackageReference "googleads-ima-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/googleads-ima-ios";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		E4B59E6C2DDFBEA100609FD6 /* XCRemoteSwiftPackageReference "googleads-ima-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/googleads-ima-ios";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		E4B59E6D2DDFBFA700609FD6 /* XCRemoteSwiftPackageReference "googleads-ima-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/googleads-ima-ios";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = E48E57E82DDE44A10029805B /* Project object */;
 }
