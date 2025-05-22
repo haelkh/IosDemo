@@ -14,10 +14,14 @@
 		E48E58052DDE44A40029805B /* IOSAPPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48E58042DDE44A40029805B /* IOSAPPTests.swift */; };
 		E48E580F2DDE44A40029805B /* IOSAPPUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48E580E2DDE44A40029805B /* IOSAPPUITests.swift */; };
 		E48E58112DDE44A40029805B /* IOSAPPUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48E58102DDE44A40029805B /* IOSAPPUITestsLaunchTests.swift */; };
-		E48E581E2DDE44D10029805B /* CustomVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48E581D2DDE44D10029805B /* CustomVideoPlayerView.swift */; };
-		E48E58212DDE4D1A0029805B /* AnimatedImageCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48E58202DDE4D1A0029805B /* AnimatedImageCard.swift */; };
 		E4B59E6F2DDFC31800609FD6 /* adplayer.html in Resources */ = {isa = PBXBuildFile; fileRef = E4B59E6E2DDFC31800609FD6 /* adplayer.html */; };
 		E4B59E712DDFC3CE00609FD6 /* AdWebPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B59E702DDFC3CE00609FD6 /* AdWebPlayer.swift */; };
+		E4B59E732DDFDA9C00609FD6 /* PremiumCarCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B59E722DDFDA9C00609FD6 /* PremiumCarCard.swift */; };
+		E4B59E752DDFDB2600609FD6 /* CarDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B59E742DDFDB2600609FD6 /* CarDetailView.swift */; };
+		E4B59E772DDFDB7600609FD6 /* PremiumVideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B59E762DDFDB7600609FD6 /* PremiumVideoPlayerView.swift */; };
+		E4B59E792DDFDBD400609FD6 /* PremiumToggleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B59E782DDFDBD400609FD6 /* PremiumToggleStyle.swift */; };
+		E4B59E7B2DDFDC0B00609FD6 /* RacingLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B59E7A2DDFDC0B00609FD6 /* RacingLine.swift */; };
+		E4B59E7D2DDFDC3400609FD6 /* ScrollOffsetPreferenceKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B59E7C2DDFDC3400609FD6 /* ScrollOffsetPreferenceKey.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,10 +52,14 @@
 		E48E580A2DDE44A40029805B /* IOSAPPUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IOSAPPUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E48E580E2DDE44A40029805B /* IOSAPPUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSAPPUITests.swift; sourceTree = "<group>"; };
 		E48E58102DDE44A40029805B /* IOSAPPUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOSAPPUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		E48E581D2DDE44D10029805B /* CustomVideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomVideoPlayerView.swift; sourceTree = "<group>"; };
-		E48E58202DDE4D1A0029805B /* AnimatedImageCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatedImageCard.swift; sourceTree = "<group>"; };
 		E4B59E6E2DDFC31800609FD6 /* adplayer.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = adplayer.html; sourceTree = "<group>"; };
 		E4B59E702DDFC3CE00609FD6 /* AdWebPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdWebPlayer.swift; sourceTree = "<group>"; };
+		E4B59E722DDFDA9C00609FD6 /* PremiumCarCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumCarCard.swift; sourceTree = "<group>"; };
+		E4B59E742DDFDB2600609FD6 /* CarDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarDetailView.swift; sourceTree = "<group>"; };
+		E4B59E762DDFDB7600609FD6 /* PremiumVideoPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumVideoPlayerView.swift; sourceTree = "<group>"; };
+		E4B59E782DDFDBD400609FD6 /* PremiumToggleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumToggleStyle.swift; sourceTree = "<group>"; };
+		E4B59E7A2DDFDC0B00609FD6 /* RacingLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RacingLine.swift; sourceTree = "<group>"; };
+		E4B59E7C2DDFDC3400609FD6 /* ScrollOffsetPreferenceKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollOffsetPreferenceKey.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,14 +110,18 @@
 		E48E57F22DDE44A10029805B /* IOSAPP */ = {
 			isa = PBXGroup;
 			children = (
-				E48E581D2DDE44D10029805B /* CustomVideoPlayerView.swift */,
 				E48E57F32DDE44A10029805B /* IOSAPPApp.swift */,
 				E48E57F52DDE44A10029805B /* ContentView.swift */,
-				E48E58202DDE4D1A0029805B /* AnimatedImageCard.swift */,
-				E4B59E6E2DDFC31800609FD6 /* adplayer.html */,
-				E48E57F72DDE44A30029805B /* Assets.xcassets */,
-				E48E57F92DDE44A40029805B /* Preview Content */,
 				E4B59E702DDFC3CE00609FD6 /* AdWebPlayer.swift */,
+				E4B59E722DDFDA9C00609FD6 /* PremiumCarCard.swift */,
+				E4B59E742DDFDB2600609FD6 /* CarDetailView.swift */,
+				E4B59E762DDFDB7600609FD6 /* PremiumVideoPlayerView.swift */,
+				E4B59E782DDFDBD400609FD6 /* PremiumToggleStyle.swift */,
+				E4B59E7A2DDFDC0B00609FD6 /* RacingLine.swift */,
+				E4B59E7C2DDFDC3400609FD6 /* ScrollOffsetPreferenceKey.swift */,
+				E48E57F72DDE44A30029805B /* Assets.xcassets */,
+				E4B59E6E2DDFC31800609FD6 /* adplayer.html */,
+				E48E57F92DDE44A40029805B /* Preview Content */,
 			);
 			path = IOSAPP;
 			sourceTree = "<group>";
@@ -276,10 +288,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				E48E57F62DDE44A10029805B /* ContentView.swift in Sources */,
-				E48E581E2DDE44D10029805B /* CustomVideoPlayerView.swift in Sources */,
-				E48E58212DDE4D1A0029805B /* AnimatedImageCard.swift in Sources */,
+				E4B59E7D2DDFDC3400609FD6 /* ScrollOffsetPreferenceKey.swift in Sources */,
 				E48E57F42DDE44A10029805B /* IOSAPPApp.swift in Sources */,
+				E4B59E792DDFDBD400609FD6 /* PremiumToggleStyle.swift in Sources */,
+				E4B59E732DDFDA9C00609FD6 /* PremiumCarCard.swift in Sources */,
+				E4B59E752DDFDB2600609FD6 /* CarDetailView.swift in Sources */,
 				E4B59E712DDFC3CE00609FD6 /* AdWebPlayer.swift in Sources */,
+				E4B59E772DDFDB7600609FD6 /* PremiumVideoPlayerView.swift in Sources */,
+				E4B59E7B2DDFDC0B00609FD6 /* RacingLine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

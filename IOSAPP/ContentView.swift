@@ -291,23 +291,23 @@ struct ContentView: View {
                         
                         // Vertical Carousel - Hypercars
                         horizontalCarSection(
-                                            title: "HYPERCARS",
-                                            icon: "flame.fill",
-                                            cars: verticalImages,
-                                            screenSize: screenSize,
-                                            isCompact: isCompact,
-                                            isRegular: isRegular
-                                        )
+                            title: "HYPERCARS",
+                            icon: "flame.fill",
+                            cars: verticalImages,
+                            screenSize: screenSize,
+                            isCompact: isCompact,
+                            isRegular: isRegular
+                        )
 
                                         // Vertical Layout - Formula 1 Cars
-                                        verticalCarSection(
-                                            title: "FORMULA 1",
-                                            icon: "flag.checkered.2.crossed",
-                                            cars: horizontalImages,
-                                            screenSize: screenSize,
-                                            isCompact: isCompact,
-                                            isRegular: isRegular
-                                        )
+                        verticalCarSection(
+                            title: "FORMULA 1",
+                            icon: "flag.checkered.2.crossed",
+                            cars: horizontalImages,
+                            screenSize: screenSize,
+                            isCompact: isCompact,
+                            isRegular: isRegular
+                        )
                         // Footer
                         VStack(spacing: 15) {
                             Text("POWERED BY")
@@ -418,94 +418,98 @@ struct ContentView: View {
         }
     }
     @ViewBuilder
-       private func horizontalCarSection(
-           title: String,
-           icon: String,
-           cars: [Car],
-           screenSize: CGSize,
-           isCompact: Bool,
-           isRegular: Bool
-       ) -> some View {
-           let cardWidth: CGFloat = isCompact ? screenSize.width * 0.5 : 260
-           let cardHeight: CGFloat = isCompact ? cardWidth * 1.5 : 260
-           
-           VStack(alignment: .leading, spacing: 15) {
-               sectionHeader(title: title, icon: icon, isCompact: isCompact)
-               
-               ScrollView(.horizontal, showsIndicators: false) {
-                   LazyHStack(spacing: isCompact ? 16 : 20) {
-                       ForEach(cars) { car in
-                           if let url = URL(string: car.url) {
-                               PremiumCarCard(
-                                   url: url,
-                                   title: car.title,
-                                   isPremium: car.isPremium,
-                                   isSubscribed: isSubscribed,
-                                   accentColor: accentColor,
-                                   accentColorAlt: accentColorAlt,
-                                   cardBgColor: cardBgColor,
-                                   width: cardWidth,
-                                   height: cardHeight,
-                                   isCompact: isCompact,
-                                   action: {
-                                       selectedCar = car
-                                       withAnimation(.spring()) {
-                                           showCarDetails = true
-                                       }
-                                   }
-                               )
-                           }
-                       }
-                   }
-                   .padding(.horizontal, isCompact ? 16 : 20)
-               }
-           }
-       }
+    private func horizontalCarSection( // This is now VERTICAL layout
+        title: String,
+        icon: String,
+        cars: [Car],
+        screenSize: CGSize,
+        isCompact: Bool,
+        isRegular: Bool
+    ) -> some View {
+        let cardWidth: CGFloat = isCompact ? screenSize.width * 0.5 : 260
+        let cardHeight: CGFloat = isCompact ? cardWidth * 1.5 : 260
+        
+        VStack(alignment: .leading, spacing: 15) {
+            sectionHeader(title: title, icon: icon, isCompact: isCompact)
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                LazyHStack(spacing: isCompact ? 16 : 20) {
+                    ForEach(cars) { car in
+                        if let url = URL(string: car.url) {
+                            PremiumCarCard(
+                                url: url,
+                                title: car.title,
+                                isPremium: car.isPremium,
+                                isSubscribed: isSubscribed,
+                                accentColor: accentColor,
+                                accentColorAlt: accentColorAlt,
+                                cardBgColor: cardBgColor,
+                                width: cardWidth,
+                                height: cardHeight,
+                                isCompact: isCompact,
+                                action: {
+                                    selectedCar = car
+                                    withAnimation(.spring()) {
+                                        showCarDetails = true
+                                    }
+                                }
+                            )
+                        }
+                    }
+                }
+                .padding(.horizontal, isCompact ? 16 : 20)
+            }
+        }
+    }
+
        
-       @ViewBuilder
-       private func verticalCarSection(
-           title: String,
-           icon: String,
-           cars: [Car],
-           screenSize: CGSize,
-           isCompact: Bool,
-           isRegular: Bool
-       ) -> some View {
-           let cardWidth: CGFloat = isCompact ? screenSize.width * 0.8 : 260
-           let cardHeight: CGFloat = isCompact ? cardWidth * 0.5 : 260
-           
-           VStack(alignment: .leading, spacing: 15) {
-               sectionHeader(title: title, icon: icon, isCompact: isCompact)
-               
-               ScrollView(.horizontal, showsIndicators: false) {
-                   LazyHStack(spacing: isCompact ? 16 : 20) {
-                       ForEach(cars) { car in
-                           if let url = URL(string: car.url) {
-                               PremiumCarCard(
-                                   url: url,
-                                   title: car.title,
-                                   isPremium: car.isPremium,
-                                   isSubscribed: isSubscribed,
-                                   accentColor: accentColor,
-                                   accentColorAlt: accentColorAlt,
-                                   cardBgColor: cardBgColor,
-                                   width: cardWidth,
-                                   height: cardHeight,
-                                   isCompact: isCompact,
-                                   action: {
-                                       selectedCar = car
-                                       withAnimation(.spring()) {
-                                           showCarDetails = true
-                                       }
-                                   }
-                               )
-                           }
-                       }
-                   }
-                   .padding(.horizontal, isCompact ? 16 : 20)
-               }
-           }
-       }
+    @ViewBuilder
+    private func verticalCarSection( // This is now HORIZONTAL layout
+        title: String,
+        icon: String,
+        cars: [Car],
+        screenSize: CGSize,
+        isCompact: Bool,
+        isRegular: Bool
+    ) -> some View {
+        let cardWidth: CGFloat = isCompact ? screenSize.width * 1 : 260
+        let cardHeight: CGFloat = isCompact ? cardWidth * 0.5 : 260
+        
+        VStack(alignment: .leading, spacing: 15) {
+            sectionHeader(title: title, icon: icon, isCompact: isCompact)
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                LazyHStack(spacing: isCompact ? 16 : 20) {
+                    ForEach(cars) { car in
+                        if let url = URL(string: car.url) {
+                            PremiumCarCard(
+                                
+                                url: url,
+                                title: car.title,
+                                isPremium: car.isPremium,
+                                isSubscribed: isSubscribed,
+                                accentColor: accentColor,
+                                accentColorAlt: accentColorAlt,
+                                cardBgColor: cardBgColor,
+                                width: cardWidth,
+                                height: cardHeight,
+                                isCompact: isCompact,
+                                action: {
+                                    selectedCar = car
+                                    withAnimation(.spring()) {
+                                        showCarDetails = true
+                                    }
+                                }
+                            )    .contentShape(Rectangle()) // Ensures full area is tappable
+
+                        }
+                    }
+                }
+                .padding(.horizontal, isCompact ? 16 : 20)
+            }
+        }
+    }
+
        
        private func sectionHeader(title: String, icon: String, isCompact: Bool) -> some View {
            HStack(spacing: 10) {
@@ -608,541 +612,11 @@ struct ContentView: View {
 
 // MARK: - Supporting Views
 
-struct PremiumCarCard: View {
-    let url: URL
-    let title: String
-    let isPremium: Bool
-    let isSubscribed: Bool
-    let accentColor: Color
-    let accentColorAlt: Color
-    let cardBgColor: Color
-    let width: CGFloat
-    let height: CGFloat
-    let isCompact: Bool
-    let action: () -> Void
-    
-    @State private var isHovered = false
-    
-    var body: some View {
-        Button(action: action) {
-            ZStack(alignment: .bottom) {
-                // Image
-                AsyncImage(url: url) { phase in
-                    if let image = phase.image {
-                        image
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                    } else if phase.error != nil {
-                        Color.gray
-                            .overlay(
-                                Image(systemName: "photo")
-                                    .foregroundColor(.white)
-                            )
-                    } else {
-                        Color.gray.opacity(0.3)
-                            .overlay(
-                                ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle(tint: accentColor))
-                            )
-                    }
-                }
-                .frame(width: width, height: height)
-                .clipShape(RoundedRectangle(cornerRadius: isCompact ? 12 : 16))
-                .overlay(
-                    RoundedRectangle(cornerRadius: isCompact ? 12 : 16)
-                        .stroke(
-                            LinearGradient(
-                                gradient: Gradient(colors: [accentColor.opacity(0.7), accentColorAlt.opacity(0.5)]),
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            ),
-                            lineWidth: 1.5
-                        )
-                )
-                
-                // Premium overlay
-                if isPremium && !isSubscribed {
-                    ZStack {
-                        Color.black.opacity(0.7)
-                        
-                        VStack(spacing: isCompact ? 6 : 8) {
-                            Image(systemName: "lock.fill")
-                                .font(.system(size: isCompact ? 20 : 24))
-                                .foregroundColor(accentColorAlt)
-                            
-                            Text("PREMIUM")
-                                .font(.system(size: isCompact ? 12 : 14, weight: .bold, design: .monospaced))
-                                .foregroundColor(.white)
-                                .tracking(2)
-                        }
-                    }
-                    .frame(width: width, height: height)
-                    .clipShape(RoundedRectangle(cornerRadius: isCompact ? 12 : 16))
-                }
-                
-                // Title background
-                LinearGradient(
-                    gradient: Gradient(colors: [
-                        Color.black.opacity(0.8),
-                        Color.black.opacity(0.4),
-                        Color.clear
-                    ]),
-                    startPoint: .bottom,
-                    endPoint: .top
-                )
-                .frame(width: width, height: height / 2.5)
-                .clipShape(
-                    RoundedRectangle(
-                        cornerRadius: isCompact ? 12 : 16,
-                        style: .continuous
-                    )
-                )
-                .opacity(isPremium && !isSubscribed ? 0 : 1)
-                
-                // Title
-                HStack {
-                    Text(title)
-                        .font(.system(size: isCompact ? 12 : 14, weight: .semibold, design: .monospaced))
-                        .foregroundColor(.white)
-                        .lineLimit(isCompact ? 2 : 1)
-                        .padding(.horizontal, isCompact ? 8 : 12)
-                        .padding(.bottom, isCompact ? 8 : 12)
-                }
-                .frame(width: width, alignment: .leading)
-                .opacity(isPremium && !isSubscribed ? 0 : 1)
-            }
-            .frame(width: width, height: height)
-            .shadow(color: Color.black.opacity(0.3), radius: 15, x: 0, y: 10)
-            .scaleEffect(isHovered ? 1.05 : 1.0)
-            .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isHovered)
-            
-        }
-        .buttonStyle(PlainButtonStyle())
-    }
-}
 
-struct CarDetailView: View {
-    let car: ContentView.Car
-    let isSubscribed: Bool
-    let accentColor: Color
-    let accentColorAlt: Color
-    let cardBgColor: Color
-    let screenSize: CGSize
-    let closeAction: () -> Void
-    let playVideoAction: () -> Void
-    
-    @State private var showSpecs = false
-    
-    private var isCompact: Bool { screenSize.width < 768 }
-    private var maxWidth: CGFloat {
-        if isCompact {
-            return screenSize.width * 0.9
-        } else {
-            return min(500, screenSize.width * 0.8)
-        }
-    }
-    private var maxHeight: CGFloat {
-        if isCompact {
-            return screenSize.height * 0.85
-        } else {
-            return min(600, screenSize.height * 0.8)
-        }
-    }
-    
-    var body: some View {
-        ScrollView {
-            ZStack {
-                // Card background
-                RoundedRectangle(cornerRadius: isCompact ? 20 : 24)
-                    .fill(cardBgColor)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: isCompact ? 20 : 24)
-                            .stroke(
-                                LinearGradient(
-                                    gradient: Gradient(colors: [accentColor.opacity(0.7), accentColorAlt.opacity(0.5)]),
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                ),
-                                lineWidth: 2
-                            )
-                    )
-                    .shadow(color: accentColor.opacity(0.3), radius: 30, x: 0, y: 15)
-                
-                VStack(spacing: 0) {
-                    // Header with image
-                    ZStack(alignment: .topTrailing) {
-                        AsyncImage(url: URL(string: car.url)) { phase in
-                            if let image = phase.image {
-                                image
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                            } else {
-                                Color.gray
-                            }
-                        }
-                        .frame(height: isCompact ? 180 : 220)
-                        .clipShape(RoundedRectangle(cornerRadius: isCompact ? 20 : 24, style: .continuous))
-                        .overlay(
-                            LinearGradient(
-                                gradient: Gradient(colors: [
-                                    Color.black.opacity(0.1),
-                                    Color.black.opacity(0.5)
-                                ]),
-                                startPoint: .top,
-                                endPoint: .bottom
-                            )
-                            .clipShape(RoundedRectangle(cornerRadius: isCompact ? 20 : 24, style: .continuous))
-                        )
-                        
-                        // Close button
-                        Button(action: closeAction) {
-                            ZStack {
-                                Circle()
-                                    .fill(Color.black.opacity(0.6))
-                                    .frame(width: isCompact ? 32 : 36, height: isCompact ? 32 : 36)
-                                
-                                Image(systemName: "xmark")
-                                    .font(.system(size: isCompact ? 12 : 14, weight: .bold))
-                                    .foregroundColor(.white)
-                            }
-                        }
-                        .padding(isCompact ? 12 : 16)
-                    }
-                    
-                    // Content
-                    VStack(alignment: .leading, spacing: isCompact ? 16 : 20) {
-                        // Title
-                        HStack {
-                            Text(car.title)
-                                .font(.system(size: isCompact ? 20 : 24, weight: .bold, design: .monospaced))
-                                .foregroundColor(.white)
-                                .lineLimit(isCompact ? 2 : 1)
-                            
-                            Spacer()
-                            
-                            if car.isPremium {
-                                HStack(spacing: 6) {
-                                    Image(systemName: "crown.fill")
-                                        .font(.system(size: isCompact ? 12 : 14))
-                                        .foregroundColor(accentColorAlt)
-                                    
-                                    Text("PREMIUM")
-                                        .font(.system(size: isCompact ? 10 : 12, weight: .semibold, design: .monospaced))
-                                        .foregroundColor(accentColorAlt)
-                                }
-                                .padding(.horizontal, isCompact ? 8 : 10)
-                                .padding(.vertical, isCompact ? 4 : 5)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 8)
-                                        .fill(accentColorAlt.opacity(0.15))
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .stroke(accentColorAlt.opacity(0.5), lineWidth: 1)
-                                        )
-                                )
-                            }
-                        }
-                        
-                        // Description
-                        Text(car.description)
-                            .font(.system(size: isCompact ? 14 : 16))
-                            .foregroundColor(.white.opacity(0.8))
-                            .lineSpacing(5)
-                        
-                        // Specs
-                        VStack(alignment: .leading, spacing: 15) {
-                            Button(action: {
-                                withAnimation(.spring()) {
-                                    showSpecs.toggle()
-                                }
-                            }) {
-                                HStack {
-                                    Text("SPECIFICATIONS")
-                                        .font(.system(size: isCompact ? 14 : 16, weight: .semibold, design: .monospaced))
-                                        .foregroundColor(accentColor)
-                                    
-                                    Spacer()
-                                    
-                                    Image(systemName: showSpecs ? "chevron.up" : "chevron.down")
-                                        .font(.system(size: isCompact ? 12 : 14, weight: .bold))
-                                        .foregroundColor(accentColor)
-                                }
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                            
-                            if showSpecs {
-                                LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: isCompact ? 1 : 2), spacing: 12) {
-                                    ForEach(Array(car.specs.keys.sorted()), id: \.self) { key in
-                                        HStack {
-                                            Text(key)
-                                                .font(.system(size: isCompact ? 12 : 14, weight: .medium))
-                                                .foregroundColor(.white.opacity(0.7))
-                                            
-                                            Spacer()
-                                            
-                                            Text(car.specs[key] ?? "")
-                                                .font(.system(size: isCompact ? 12 : 14, weight: .bold))
-                                                .foregroundColor(.white)
-                                        }
-                                        .padding(.vertical, 5)
-                                        .padding(.horizontal, isCompact ? 10 : 12)
-                                        .background(
-                                            RoundedRectangle(cornerRadius: 8)
-                                                .fill(Color.white.opacity(0.05))
-                                        )
-                                    }
-                                }
-                                .transition(.opacity.combined(with: .move(edge: .top)))
-                            }
-                        }
-                        
-                        // Action buttons
-                        if isCompact {
-                            VStack(spacing: 12) {
-                                
 
-                                Button(action: playVideoAction) {
-                                    HStack(spacing: 8) {
-                                        Image(systemName: "play.fill")
-                                            .font(.system(size: 16))
-                                        
-                                        Text("WATCH VIDEO")
-                                            .font(.system(size: 14, weight: .medium, design: .monospaced))
-                                    }
-                                    .foregroundColor(.black)
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 12)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 12)
-                                            .fill(car.isPremium && !isSubscribed ? Color.gray : accentColorAlt)
-                                    )
-                                }
-                                .disabled(car.isPremium && !isSubscribed)
-                                .opacity(car.isPremium && !isSubscribed ? 0.5 : 1)
-                            }
-                        } else {
-                            HStack(spacing: 15) {
-                                
-                                Button(action: playVideoAction) {
-                                    HStack(spacing: 8) {
-                                        Image(systemName: "play.fill")
-                                            .font(.system(size: 16))
-                                        
-                                        Text("WATCH VIDEO")
-                                            .font(.system(size: 14, weight: .medium, design: .monospaced))
-                                    }
-                                    .foregroundColor(.black)
-                                    .padding(.vertical, 12)
-                                    .padding(.horizontal, 20)
-                                    .background(
-                                        RoundedRectangle(cornerRadius: 12)
-                                            .fill(car.isPremium && !isSubscribed ? Color.gray : accentColorAlt)
-                                    )
-                                }
-                                .disabled(car.isPremium && !isSubscribed)
-                                .opacity(car.isPremium && !isSubscribed ? 0.5 : 1)
-                            }
-                        }
-                    }
-                    .padding(isCompact ? 16 : 24)
-                }
-            }
-        }
-        .frame(maxWidth: maxWidth, maxHeight: maxHeight)
-        .padding(isCompact ? 16 : 20)
-    }
-}
 
-struct PremiumVideoPlayerView<AdContent: View>: View {
-    let url: URL?
-    let isSubscribed: Bool
-    let screenSize: CGSize
-    let adContent: AdContent?
-    let closeAction: () -> Void
 
-    @State private var isPlaying = true
-    @State private var volume: Float = 0.8
 
-    private var isCompact: Bool { screenSize.width < 768 }
-    private var playerWidth: CGFloat {
-        isCompact ? screenSize.width * 0.9 : min(500, screenSize.width * 0.8)
-    }
-    private var playerHeight: CGFloat {
-        isCompact ? screenSize.height * 0.7 : 450
-    }
-
-    var body: some View {
-        ZStack {
-            // Background
-            RoundedRectangle(cornerRadius: isCompact ? 16 : 20)
-                .fill(Color(hex: "1E1E28"))
-                .shadow(color: Color.black.opacity(0.5), radius: 30)
-
-            VStack(spacing: 0) {
-                // ▶️ Video OR AdWebPlayer
-                Group {
-                    if let adContent = adContent {
-                        adContent
-                    } else if let url = url {
-                        VideoPlayer(player: AVPlayer(url: url))
-                            .onAppear {
-                                AVPlayer(url: url).play()
-                            }
-                    } else {
-                        Color.black.overlay(Text("No Content").foregroundColor(.white))
-                    }
-                }
-                .frame(height: isCompact ? 200 : 300)
-                .clipShape(RoundedRectangle(cornerRadius: isCompact ? 16 : 20, style: .continuous))
-                .overlay(
-                    RoundedRectangle(cornerRadius: isCompact ? 16 : 20, style: .continuous)
-                        .stroke(Color.white.opacity(0.1), lineWidth: 1)
-                )
-
-                // Controls
-                VStack(spacing: isCompact ? 16 : 20) {
-                    // Title + close button
-                    HStack {
-                        Text("VIDEO PREVIEW")
-                            .font(.system(size: isCompact ? 16 : 18, weight: .bold, design: .monospaced))
-                            .foregroundColor(.white)
-                        Spacer()
-                        Button(action: closeAction) {
-                            Image(systemName: "xmark")
-                                .font(.system(size: isCompact ? 14 : 16, weight: .bold))
-                                .foregroundColor(.white.opacity(0.8))
-                                .padding(8)
-                                .background(Color.white.opacity(0.1))
-                                .clipShape(Circle())
-                        }
-                    }
-
-                    // Playback controls (skip for ads)
-                    if adContent == nil {
-                        HStack(spacing: isCompact ? 20 : 30) {
-                            Button(action: {}) {
-                                Image(systemName: "backward.fill")
-                                    .font(.system(size: isCompact ? 18 : 20))
-                                    .foregroundColor(.white)
-                            }
-                            Button(action: { isPlaying.toggle() }) {
-                                Image(systemName: isPlaying ? "pause.fill" : "play.fill")
-                                    .font(.system(size: isCompact ? 20 : 24))
-                                    .foregroundColor(.white)
-                                    .frame(width: isCompact ? 44 : 50, height: isCompact ? 44 : 50)
-                                    .background(Color(hex: "FF3B30"))
-                                    .clipShape(Circle())
-                            }
-                            Button(action: {}) {
-                                Image(systemName: "forward.fill")
-                                    .font(.system(size: isCompact ? 18 : 20))
-                                    .foregroundColor(.white)
-                            }
-                        }
-
-                        // Volume slider
-                        HStack(spacing: 15) {
-                            Image(systemName: "speaker.wave.1.fill")
-                                .foregroundColor(.white.opacity(0.7))
-                                .font(.system(size: isCompact ? 14 : 16))
-                            Slider(value: $volume, in: 0...1)
-                                .accentColor(Color(hex: "FF3B30"))
-                            Image(systemName: "speaker.wave.3.fill")
-                                .foregroundColor(.white.opacity(0.7))
-                                .font(.system(size: isCompact ? 14 : 16))
-                        }
-                    }
-                }
-                .padding(isCompact ? 16 : 20)
-            }
-        }
-        .frame(width: playerWidth, height: playerHeight)
-    }
-}
-
-struct PremiumToggleStyle: ToggleStyle {
-    var onColor: Color
-    var offColor: Color
-    var size: ToggleSize = .normal
-    
-    enum ToggleSize {
-        case small, normal
-        
-        var width: CGFloat {
-            switch self {
-            case .small: return 44
-            case .normal: return 50
-            }
-        }
-        
-        var height: CGFloat {
-            switch self {
-            case .small: return 26
-            case .normal: return 30
-            }
-        }
-        
-        var circleSize: CGFloat {
-            switch self {
-            case .small: return 20
-            case .normal: return 24
-            }
-        }
-        
-        var offset: CGFloat {
-            switch self {
-            case .small: return 8
-            case .normal: return 10
-            }
-        }
-    }
-    
-    func makeBody(configuration: Configuration) -> some View {
-        HStack {
-            configuration.label
-            
-            ZStack {
-                Capsule()
-                    .fill(configuration.isOn ? onColor : offColor)
-                    .frame(width: size.width, height: size.height)
-                    .shadow(color: configuration.isOn ? onColor.opacity(0.5) : Color.black.opacity(0.1), radius: 8)
-                
-                Circle()
-                    .fill(Color.white)
-                    .shadow(radius: 1)
-                    .frame(width: size.circleSize, height: size.circleSize)
-                    .offset(x: configuration.isOn ? size.offset : -size.offset)
-            }
-            .onTapGesture {
-                withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
-                    configuration.isOn.toggle()
-                }
-            }
-        }
-    }
-}
-
-struct RacingLine: View {
-    let width: CGFloat
-    let offset: CGFloat
-    let color: Color
-    
-    var body: some View {
-        Path { path in
-            path.move(to: CGPoint(x: 0, y: offset))
-            path.addLine(to: CGPoint(x: width, y: offset + 100))
-        }
-        .stroke(style: StrokeStyle(lineWidth: 2, dash: [10, 10]))
-        .foregroundColor(color)
-    }
-}
-
-struct ScrollOffsetPreferenceKey: PreferenceKey {
-    static var defaultValue: CGFloat = 0
-    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {
-        value = nextValue()
-    }
-}
 
 // MARK: - Helper Extensions
 
