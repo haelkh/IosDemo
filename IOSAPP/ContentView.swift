@@ -1,6 +1,6 @@
 import SwiftUI
 import AVKit
-//powered by Hassan Elkhatib
+//powered by Hassan Mohsen Elkhatib
 struct ContentView: View {
     @AppStorage("isSubscribed") private var isSubscribed: Bool = false
     @State private var showPlayer = false
