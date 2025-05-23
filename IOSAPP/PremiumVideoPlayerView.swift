@@ -10,6 +10,7 @@ struct PremiumVideoPlayerView<AdContent: View>: View {
 
     @State private var isPlaying = true
     @State private var volume: Float = 0.8
+    @State private var showFullScreen = false
 
     private var isCompact: Bool { screenSize.width < 768 }
     private var playerWidth: CGFloat {
@@ -21,13 +22,12 @@ struct PremiumVideoPlayerView<AdContent: View>: View {
 
     var body: some View {
         ZStack {
-            // Background
             RoundedRectangle(cornerRadius: isCompact ? 16 : 20)
                 .fill(Color(hex: "1E1E28"))
                 .shadow(color: Color.black.opacity(0.5), radius: 30)
 
             VStack(spacing: 0) {
-                // ▶️ Video OR AdWebPlayer
+                // Video or Ad
                 Group {
                     if let adContent = adContent {
                         adContent
@@ -41,20 +41,34 @@ struct PremiumVideoPlayerView<AdContent: View>: View {
                     }
                 }
                 .frame(height: isCompact ? 200 : 300)
-                .clipShape(RoundedRectangle(cornerRadius: isCompact ? 16 : 20, style: .continuous))
+                .clipShape(RoundedRectangle(cornerRadius: isCompact ? 16 : 20))
                 .overlay(
-                    RoundedRectangle(cornerRadius: isCompact ? 16 : 20, style: .continuous)
+                    RoundedRectangle(cornerRadius: isCompact ? 16 : 20)
                         .stroke(Color.white.opacity(0.1), lineWidth: 1)
                 )
 
                 // Controls
                 VStack(spacing: isCompact ? 16 : 20) {
-                    // Title + close button
+                    // Header
                     HStack {
                         Text("VIDEO PREVIEW")
                             .font(.system(size: isCompact ? 16 : 18, weight: .bold, design: .monospaced))
                             .foregroundColor(.white)
                         Spacer()
+                        // Full Screen Button
+                        if adContent == nil && url != nil {
+                            Button(action: {
+                                showFullScreen.toggle()
+                            }) {
+                                Image(systemName: "arrow.up.left.and.arrow.down.right")
+                                    .font(.system(size: isCompact ? 14 : 16, weight: .bold))
+                                    .foregroundColor(.white.opacity(0.8))
+                                    .padding(8)
+                                    .background(Color.white.opacity(0.1))
+                                    .clipShape(Circle())
+                            }
+                        }
+                        // Close Button
                         Button(action: closeAction) {
                             Image(systemName: "xmark")
                                 .font(.system(size: isCompact ? 14 : 16, weight: .bold))
@@ -65,7 +79,7 @@ struct PremiumVideoPlayerView<AdContent: View>: View {
                         }
                     }
 
-                    // Playback controls (skip for ads)
+                    // Playback controls
                     if adContent == nil {
                         HStack(spacing: isCompact ? 20 : 30) {
                             Button(action: {}) {
@@ -88,7 +102,6 @@ struct PremiumVideoPlayerView<AdContent: View>: View {
                             }
                         }
 
-                        // Volume slider
                         HStack(spacing: 15) {
                             Image(systemName: "speaker.wave.1.fill")
                                 .foregroundColor(.white.opacity(0.7))
@@ -105,5 +118,39 @@ struct PremiumVideoPlayerView<AdContent: View>: View {
             }
         }
         .frame(width: playerWidth, height: playerHeight)
+        .fullScreenCover(isPresented: $showFullScreen) {
+            if let url = url {
+                FullScreenVideoPlayer(url: url) {
+                    showFullScreen = false
+                }
+            }
+        }
+    }
+}
+
+// MARK: - FullScreenVideoPlayer
+
+struct FullScreenVideoPlayer: View {
+    let url: URL
+    let onClose: () -> Void
+
+    var body: some View {
+        ZStack(alignment: .topTrailing) {
+            VideoPlayer(player: AVPlayer(url: url))
+                .edgesIgnoringSafeArea(.all)
+                .onAppear {
+                    AVPlayer(url: url).play()
+                }
+
+            Button(action: onClose) {
+                Image(systemName: "xmark")
+                    .font(.system(size: 20, weight: .bold))
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.black.opacity(0.5))
+                    .clipShape(Circle())
+                    .padding()
+            }
+        }
     }
 }

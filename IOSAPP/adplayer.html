@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Basic HTML setup with UTF-8 character encoding -->
+  <meta charset="utf-8" />
+  <!-- Viewport settings to make it fullscreen on mobile devices -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Fullscreen Ad Video</title>
+
+  <!-- Loading required libraries -->
+  <!-- Video.js CSS for player styling -->
+  <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
+  <!-- Google IMA SDK for ad playback -->
+  <script src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+  <!-- Video.js core library -->
+  <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
+  <!-- Video.js ads plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-ads@6.6.4/dist/videojs.ads.min.js"></script>
+  <!-- IMA plugin for Video.js -->
+  <script src="https://cdn.jsdelivr.net/npm/videojs-ima@1.9.1/dist/videojs.ima.min.js"></script>
+
+  <style>
+    /* Basic styling to make everything fullscreen and disable interactions */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: black;
+      overflow: hidden;
+      -webkit-user-select: none;
+      -webkit-touch-callout: none;
+    }
+      
+    /* Video player styling - full viewport, cover mode */
+    .video-js {
+      width: 100vw !important;
+      height: 100vh !important;
+      object-fit: cover;
+      pointer-events: none; /* Disable all interaction */
+    }
+  </style>
+</head>
+<!-- Disabling various user interactions to prevent interference -->
+<body oncontextmenu="return false;" onkeydown="return false;" onmousedown="return false;" onselectstart="return false;" ontouchstart="return false;">
+
+  <!-- Video element with autoplay, muted, and no controls -->
+  <video id="content_video" class="video-js vjs-default-skin" autoplay muted playsinline preload="auto">
+    <!-- Sample video source -->
+    <source src="https://storage.googleapis.com/gvabox/media/samples/stock.mp4" type="video/mp4" />
+  </video>
+
+  <script>
+    // Initialize Video.js player
+    const player = videojs('content_video');
+
+    player.ready(function () {
+      // Set up IMA (Interactive Media Ads) plugin
+      player.ima({
+        adTagUrl: "https://pubads.g.doubleclick.net/gampad/ads...", // Google Ad Tag URL
+        autoPlayAdBreaks: true // Automatically play ad breaks
+      });
+
+      // Initialize ad display and request ads
+      player.ima.initializeAdDisplayContainer();
+      player.ima.requestAds();
+      player.play(); // Start playback
+
+      // Function to attempt entering fullscreen mode
+      const tryFullscreen = () => {
+        const el = document.getElementById('content_video');
+        // Try different fullscreen methods for browser compatibility
+        if (el.requestFullscreen) el.requestFullscreen();
+        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+        else if (el.msRequestFullscreen) el.msRequestFullscreen();
+      };
+      // Attempt fullscreen after a short delay
+      setTimeout(tryFullscreen, 500);
+    });
+  </script>
+
+</body>
+</html>
