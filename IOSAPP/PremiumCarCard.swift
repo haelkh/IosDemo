@@ -1,25 +1,26 @@
 import SwiftUI
 import AVKit
 
+// A reusable card view for displaying car previews with optional premium access control
 struct PremiumCarCard: View {
-    let url: URL
-    let title: String
-    let isPremium: Bool
-    let isSubscribed: Bool
-    let accentColor: Color
-    let accentColorAlt: Color
-    let cardBgColor: Color
-    let width: CGFloat
-    let height: CGFloat
-    let isCompact: Bool
-    let action: () -> Void
+    let url: URL                         // URL of the car image
+    let title: String                    // Title to display on the card
+    let isPremium: Bool                  // Indicates if this car is premium content
+    let isSubscribed: Bool               // Whether the user has a subscription
+    let accentColor: Color               // Primary accent color
+    let accentColorAlt: Color            // Secondary accent color (used in overlay)
+    let cardBgColor: Color               // Background color of the card
+    let width: CGFloat                   // Width of the card
+    let height: CGFloat                  // Height of the card
+    let isCompact: Bool                  // Whether layout should be compact
+    let action: () -> Void               // Action when card is tapped
     
-    @State private var isHovered = false
-    
+    @State private var isHovered = false // For hover scaling effect (can be useful on macOS)
+
     var body: some View {
         Button(action: action) {
             ZStack(alignment: .bottom) {
-                // Image
+                // Async image loader with fallback/error/loading handling
                 AsyncImage(url: url) { phase in
                     if let image = phase.image {
                         image
@@ -42,6 +43,7 @@ struct PremiumCarCard: View {
                 .frame(width: width, height: height)
                 .clipShape(RoundedRectangle(cornerRadius: isCompact ? 12 : 16))
                 .overlay(
+                    // Border stroke with gradient
                     RoundedRectangle(cornerRadius: isCompact ? 12 : 16)
                         .stroke(
                             LinearGradient(
@@ -52,17 +54,15 @@ struct PremiumCarCard: View {
                             lineWidth: 1.5
                         )
                 )
-                
-                // Premium overlay
+
+                // Overlay lock and "PREMIUM" label if user is not subscribed
                 if isPremium && !isSubscribed {
                     ZStack {
                         Color.black.opacity(0.7)
-                        
                         VStack(spacing: isCompact ? 6 : 8) {
                             Image(systemName: "lock.fill")
                                 .font(.system(size: isCompact ? 20 : 24))
                                 .foregroundColor(accentColorAlt)
-                            
                             Text("PREMIUM")
                                 .font(.system(size: isCompact ? 12 : 14, weight: .bold, design: .monospaced))
                                 .foregroundColor(.white)
@@ -72,8 +72,8 @@ struct PremiumCarCard: View {
                     .frame(width: width, height: height)
                     .clipShape(RoundedRectangle(cornerRadius: isCompact ? 12 : 16))
                 }
-                
-                // Title background
+
+                // Gradient background for title text (fades into image)
                 LinearGradient(
                     gradient: Gradient(colors: [
                         Color.black.opacity(0.8),
@@ -85,14 +85,11 @@ struct PremiumCarCard: View {
                 )
                 .frame(width: width, height: height / 2.5)
                 .clipShape(
-                    RoundedRectangle(
-                        cornerRadius: isCompact ? 12 : 16,
-                        style: .continuous
-                    )
+                    RoundedRectangle(cornerRadius: isCompact ? 12 : 16, style: .continuous)
                 )
                 .opacity(isPremium && !isSubscribed ? 0 : 1)
-                
-                // Title
+
+                // Title text overlay (hidden if locked)
                 HStack {
                     Text(title)
                         .font(.system(size: isCompact ? 12 : 14, weight: .semibold, design: .monospaced))
@@ -108,10 +105,9 @@ struct PremiumCarCard: View {
             .shadow(color: Color.black.opacity(0.3), radius: 15, x: 0, y: 10)
             .scaleEffect(isHovered ? 1.05 : 1.0)
             .animation(.spring(response: 0.3, dampingFraction: 0.7), value: isHovered)
-            
         }
         .frame(width: width, height: height)
-        .contentShape(Rectangle()) // ✅ Makes entire frame tappable
-        .buttonStyle(PlainButtonStyle()) // ✅ Prevents iOS-style button effects
+        .contentShape(Rectangle()) // Ensures full card is tappable
+        .buttonStyle(PlainButtonStyle()) // Removes default button styling (like highlight)
     }
 }

@@ -1,18 +1,21 @@
 import SwiftUI
 import AVKit
 
+// Generic view that shows a video player or ad content depending on user's subscription status
 struct PremiumVideoPlayerView<AdContent: View>: View {
-    let url: URL?
-    let isSubscribed: Bool
-    let screenSize: CGSize
-    let adContent: AdContent?
-    let closeAction: () -> Void
+    let url: URL?                    // Video URL to play
+    let isSubscribed: Bool          // Flag to determine if user is subscribed
+    let screenSize: CGSize          // Current screen size for layout adjustments
+    let adContent: AdContent?       // Optional ad content to display
+    let closeAction: () -> Void     // Action triggered when close button is pressed
 
-    @State private var isPlaying = true
-    @State private var volume: Float = 0.8
-    @State private var showFullScreen = false
+    @State private var isPlaying = true      // Tracks playback state
+    @State private var volume: Float = 0.8   // Video volume
+    @State private var showFullScreen = false // Toggle for fullscreen player
 
+    // Determine if the layout should be compact based on screen width
     private var isCompact: Bool { screenSize.width < 768 }
+    // Calculate video player width and height based on screen size
     private var playerWidth: CGFloat {
         isCompact ? screenSize.width * 0.9 : min(500, screenSize.width * 0.8)
     }
@@ -22,22 +25,23 @@ struct PremiumVideoPlayerView<AdContent: View>: View {
 
     var body: some View {
         ZStack {
+            // Background container with rounded corners and shadow
             RoundedRectangle(cornerRadius: isCompact ? 16 : 20)
                 .fill(Color(hex: "1E1E28"))
                 .shadow(color: Color.black.opacity(0.5), radius: 30)
 
             VStack(spacing: 0) {
-                // Video or Ad
+                // Display either ad content, video, or fallback message
                 Group {
                     if let adContent = adContent {
-                        adContent
+                        adContent // Show ad
                     } else if let url = url {
-                        VideoPlayer(player: AVPlayer(url: url))
+                        VideoPlayer(player: AVPlayer(url: url)) // Show video
                             .onAppear {
                                 AVPlayer(url: url).play()
                             }
                     } else {
-                        Color.black.overlay(Text("No Content").foregroundColor(.white))
+                        Color.black.overlay(Text("No Content").foregroundColor(.white)) // No content fallback
                     }
                 }
                 .frame(height: isCompact ? 200 : 300)
@@ -47,15 +51,16 @@ struct PremiumVideoPlayerView<AdContent: View>: View {
                         .stroke(Color.white.opacity(0.1), lineWidth: 1)
                 )
 
-                // Controls
+                // UI controls below the video/ad
                 VStack(spacing: isCompact ? 16 : 20) {
-                    // Header
+                    // Header section with title, fullscreen, and close buttons
                     HStack {
                         Text("VIDEO PREVIEW")
                             .font(.system(size: isCompact ? 16 : 18, weight: .bold, design: .monospaced))
                             .foregroundColor(.white)
                         Spacer()
-                        // Full Screen Button
+
+                        // Fullscreen button (only for video content)
                         if adContent == nil && url != nil {
                             Button(action: {
                                 showFullScreen.toggle()
@@ -68,7 +73,8 @@ struct PremiumVideoPlayerView<AdContent: View>: View {
                                     .clipShape(Circle())
                             }
                         }
-                        // Close Button
+
+                        // Close button
                         Button(action: closeAction) {
                             Image(systemName: "xmark")
                                 .font(.system(size: isCompact ? 14 : 16, weight: .bold))
@@ -79,7 +85,7 @@ struct PremiumVideoPlayerView<AdContent: View>: View {
                         }
                     }
 
-                    // Playback controls
+                    // Playback controls (only for video content)
                     if adContent == nil {
                         HStack(spacing: isCompact ? 20 : 30) {
                             Button(action: {}) {
@@ -102,6 +108,7 @@ struct PremiumVideoPlayerView<AdContent: View>: View {
                             }
                         }
 
+                        // Volume control slider
                         HStack(spacing: 15) {
                             Image(systemName: "speaker.wave.1.fill")
                                 .foregroundColor(.white.opacity(0.7))
@@ -118,6 +125,7 @@ struct PremiumVideoPlayerView<AdContent: View>: View {
             }
         }
         .frame(width: playerWidth, height: playerHeight)
+        // Fullscreen overlay player
         .fullScreenCover(isPresented: $showFullScreen) {
             if let url = url {
                 FullScreenVideoPlayer(url: url) {
@@ -130,6 +138,7 @@ struct PremiumVideoPlayerView<AdContent: View>: View {
 
 // MARK: - FullScreenVideoPlayer
 
+// View that presents a fullscreen video player with a close button
 struct FullScreenVideoPlayer: View {
     let url: URL
     let onClose: () -> Void
@@ -142,6 +151,7 @@ struct FullScreenVideoPlayer: View {
                     AVPlayer(url: url).play()
                 }
 
+            // Close button for fullscreen view
             Button(action: onClose) {
                 Image(systemName: "xmark")
                     .font(.system(size: 20, weight: .bold))
